@@ -1,0 +1,97 @@
+// Process form data
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Define an array of expected form field names
+    $expected_fields = array("vn", "iouv", "cwsm", "hcwc", "pdyu", "hlhybrn", "ohmc", "dyapt", "tsaa", "yhms", "hdyo", "hdykm", "dyyys", "ayake", "dyrdton", "dyeic", "yrii", "dyrti", "dyea", "wciyle", "dyhaww", "cyetri", "hmc");
+
+    // Initialize an array to store form data
+    $form_data = array();
+
+    // Loop through the expected fields and retrieve form data
+    foreach ($expected_fields as $field) {
+        // Check if the field exists in the $_POST array
+        if (isset($_POST[$field])) {
+            $form_data[$field] = $_POST[$field];
+        } else {
+            // Handle the case where the field is missing
+            $form_data[$field] = null; // Set a default value or handle the missing field as needed
+        }
+    }
+
+    // Prepare and bind
+    $stmt = $conn->prepare("INSERT INTO venomValidatorForm (vn, iouv, cwsm, hcwc, pdyu, hlhybrn, ohmc, dyapt, tsaa, yhms, hdyo, hdykm, dyyys, ayake, dyrdton, dyeic, yrii, dyrti, dyea, wciyle, dyhaww, cyetri, hmc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("ssssssssssssssssssssssss", ...array_values($form_data)); // Using array_values to get only the values
+    
+    // Execute SQL
+    $stmt->execute();
+    
+    echo "Form data successfully submitted to the database.";
+
+    $stmt->close();
+}
+
+//table 
+CREATE TABLE your_table_name (
+    vn VARCHAR(255),
+    iouv VARCHAR(255),
+    cwsm VARCHAR(255),
+    hcwc VARCHAR(255),
+    pdyu VARCHAR(255),
+    hlhybrn VARCHAR(255),
+    ohmc VARCHAR(255),
+    dyapt VARCHAR(255),
+    tsaa VARCHAR(255),
+    yhms VARCHAR(255),
+    hdyo VARCHAR(255),
+    hdykm VARCHAR(255),
+    dyyys VARCHAR(255),
+    ayake VARCHAR(255),
+    dyrdton VARCHAR(255),
+    dyeic VARCHAR(255),
+    yrii VARCHAR(255),
+    dyrti VARCHAR(255),
+    dyea VARCHAR(255),
+    wciyle VARCHAR(255),
+    dyhaww VARCHAR(255),
+    cyetri VARCHAR(255),
+    hmc VARCHAR(255)
+);
+
+// php script to send data to database 
+<?php
+// Database credentials
+$servername = "localhost";
+$username = "your_username";
+$password = "your_password";
+$dbname = "your_database";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Process form data
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $vn = $_POST['vn'];
+    $iouv = $_POST['iouv'];
+    $cwsm = $_POST['cwsm'];
+    $hcwc = $_POST['hcwc'];
+
+    // You can add more fields here
+
+    // Prepare and bind
+    $stmt = $conn->prepare("INSERT INTO your_table (vn, iouv, cwsm, hcwc) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("ssss", $vn, $iouv, $cwsm, $hcwc);
+
+    // Execute SQL
+    $stmt->execute();
+    
+    echo "Form data successfully submitted to the database.";
+
+    $stmt->close();
+}
+
+$conn->close();
+?>

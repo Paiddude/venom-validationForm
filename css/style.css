@@ -4,6 +4,7 @@ body {
             padding: 0;
             background-color: #000000;
             overflow: hidden;
+
         }
 
         section{
@@ -56,7 +57,6 @@ border: 1px solid rgba(255, 255, 255, 0.3);
             box-sizing: border-box;
             border: 1px solid #ccc;
             border-radius: 4px;
-
         }
 
         .form-button {

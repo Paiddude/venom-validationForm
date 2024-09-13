@@ -9,11 +9,7 @@ $dbname = "venom-validator";
 $conn = new mysqli($servername, $username, $password, $dbname);
 
 
-if($conn){
 
-echo 'hello';
 
-} else {
-    echo 'knock ';
-}
+
 ?>
